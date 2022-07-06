@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Mahasiswa')
+@section('title', 'Asset Kampus')
 @section('header-content')
     <h1 class="judul-page">Aset Kampus</h1>
     <div class="section-header-breadcrumb">
