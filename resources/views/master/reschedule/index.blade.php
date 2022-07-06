@@ -63,7 +63,7 @@
                         @endforeach
                         @else
                         <tr class="text-center font-weight-bold bg-light">
-                            <td colspan="6" height="50" style="vertical-align: middle"> - Belum ada pengajuan reschedule agenda - </td>
+                            <td colspan="6" height="50" style="vertical-align: middle"> - Pengajuan Reschedule Tidak Tersedia  - </td>
                         </tr>
                         @endif
                     </tbody>
