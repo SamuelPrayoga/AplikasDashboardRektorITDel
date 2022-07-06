@@ -56,68 +56,72 @@ class DashboardController extends Controller
 
         $dataAsset = [];
 
-        // Merge Unit
-        foreach($fasilitas->aset as $key => $aset) {
-            foreach($fasilitas->unit as $unit) {
-                if ($aset->unit_id == $unit->id) {
-                    $dataAsset[$key] = $aset;
-                    $dataAsset[$key]->unit = $unit->nama;
+        // dd($fasilitas);
+
+        if (!empty($fasilitas)) {
+            // Merge Unit
+            foreach($fasilitas->aset as $key => $aset) {
+                foreach($fasilitas->unit as $unit) {
+                    if ($aset->unit_id == $unit->id) {
+                        $dataAsset[$key] = $aset;
+                        $dataAsset[$key]->unit = $unit->nama;
+                    }
                 }
             }
-        }
 
-        // Merge Kategori
-        foreach($fasilitas->aset as $key => $aset) {
-            foreach($fasilitas->kategori as $kategori) {
-                if ($aset->kategori_id == $kategori->id) {
-                    $dataAsset[$key]->kategori = $kategori->nama;
+            // Merge Kategori
+            foreach($fasilitas->aset as $key => $aset) {
+                foreach($fasilitas->kategori as $kategori) {
+                    if ($aset->kategori_id == $kategori->id) {
+                        $dataAsset[$key]->kategori = $kategori->nama;
+                    }
                 }
             }
-        }
 
-        // Merge Gedung
-        foreach($fasilitas->aset as $key => $aset) {
-            foreach($fasilitas->gedung as $gedung) {
-                if ($aset->gedung_id == $gedung->id) {
-                    $dataAsset[$key]->gedung = $gedung->nama;
+            // Merge Gedung
+            foreach($fasilitas->aset as $key => $aset) {
+                foreach($fasilitas->gedung as $gedung) {
+                    if ($aset->gedung_id == $gedung->id) {
+                        $dataAsset[$key]->gedung = $gedung->nama;
+                    }
                 }
             }
-        }
 
-        $dataGedung = []; $dataKategori = []; $dataUnit = [];
+            $dataGedung = []; $dataKategori = []; $dataUnit = [];
 
-        foreach($fasilitas->gedung as $key => $gedung) {
-            $dataGedung[$key] = $gedung;
-            $totalGedung = 0;
-            foreach($fasilitas->aset as $aset) {
-                if ($gedung->id == $aset->gedung_id) {
-                    $dataGedung[$key]->aset = [$aset];
-                    $totalGedung += count($dataGedung[$key]->aset);
-                    $dataGedung[$key]->total_aset = $totalGedung;
+            foreach($fasilitas->gedung as $key => $gedung) {
+                $dataGedung[$key] = $gedung;
+                $totalGedung = 0;
+                foreach($fasilitas->aset as $aset) {
+                    if ($gedung->id == $aset->gedung_id) {
+                        $dataGedung[$key]->aset = [$aset];
+                        $totalGedung += count($dataGedung[$key]->aset);
+                        $dataGedung[$key]->total_aset = $totalGedung;
+                    }
                 }
             }
-        }
 
-        foreach($fasilitas->kategori as $key => $kategori) {
-            $dataKategori[$key] = $kategori;
-            $totalKategori = 0;
-            foreach($fasilitas->aset as $aset) {
-                if ($kategori->id == $aset->kategori_id) {
-                    $dataKategori[$key]->aset = [$aset];
-                    $totalKategori += count($dataKategori[$key]->aset);
-                    $dataKategori[$key]->total_aset = $totalKategori;
+            foreach($fasilitas->kategori as $key => $kategori) {
+                $dataKategori[$key] = $kategori;
+                $totalKategori = 0;
+                foreach($fasilitas->aset as $aset) {
+                    if ($kategori->id == $aset->kategori_id) {
+                        $dataKategori[$key]->aset = [$aset];
+                        $totalKategori += count($dataKategori[$key]->aset);
+                        $dataKategori[$key]->total_aset = $totalKategori;
+                    }
                 }
             }
-        }
 
-        foreach($fasilitas->unit as $key => $unit) {
-            $dataUnit[$key] = $unit;
-            $totalUnit = 0;
-            foreach($fasilitas->aset as $aset) {
-                if ($unit->id == $aset->unit_id) {
-                    $dataUnit[$key]->aset = [$aset];
-                    $totalUnit += count($dataUnit[$key]->aset);
-                    $dataUnit[$key]->total_aset = $totalUnit;
+            foreach($fasilitas->unit as $key => $unit) {
+                $dataUnit[$key] = $unit;
+                $totalUnit = 0;
+                foreach($fasilitas->aset as $aset) {
+                    if ($unit->id == $aset->unit_id) {
+                        $dataUnit[$key]->aset = [$aset];
+                        $totalUnit += count($dataUnit[$key]->aset);
+                        $dataUnit[$key]->total_aset = $totalUnit;
+                    }
                 }
             }
         }
@@ -126,13 +130,17 @@ class DashboardController extends Controller
             'agenda' => $agd,
             'mahasiswa' => $mahasiswa,
             'asset' => $dataAsset,
-            'gedung' => $dataGedung,
-            'kategori' => $dataKategori,
-            'unit' => $dataUnit,
         ];
 
+        if(!empty($fasilitas)) {
+            $data['asset'] = $dataAsset;
+            $data['gedung'] = $dataGedung;
+            $data['kategori'] = $dataKategori;
+            $data['unit'] = $dataUnit;
+        }
+
         // dd($dataGedung);
-        return view('master.dashboard.index', ['data' => json_encode($data), 'asset' => $dataAsset]);
+        return view('master.dashboard.index', ['data' => json_encode($data), 'asset' => $dataAsset, 'array' => $data]);
     }
 
 }

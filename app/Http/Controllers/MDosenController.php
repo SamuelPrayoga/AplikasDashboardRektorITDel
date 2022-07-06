@@ -81,7 +81,7 @@ class MDosenController extends Controller
                 'status_kerja' => $request->status_kerja,
                 'mulai_aktif' => $request->mulai_aktif,
                 'selesai_aktif' => $request->selesai_aktif,
-                'modified_at' => \Carbon\Carbon::now()
+                'modified' => \Carbon\Carbon::now()
             ]);
             Alert::success('Berhasil', 'Data Dosen berhasil diubah.');
             return redirect('/dosen');

@@ -30,7 +30,7 @@
                         @foreach ( $model as $value )
                         <tr class="text-center" style="{{!isset($value->persetujuan) ? 'background: #ebebeb;' : '' }}">
                             <td>{{ $value->tanggal }}</td>
-                            <td>{{ $value->jam }} WIB</td>
+                            <td>{{ $value->jam }}</td>
                             <td class="text-left">{{ $value->nama_agenda }}</td>
                             <td>
                                 @if( $value->status == 1 )
