@@ -11,7 +11,7 @@ use App\Http\Controllers\RescheduleController;
 use App\Http\Controllers\AsetController;
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'authenticate']);
 });
 
