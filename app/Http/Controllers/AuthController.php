@@ -105,4 +105,12 @@ class AuthController extends Controller
         return redirect('/pengguna');
     }
 
+    public function delete($id) {
+        DB::table('users')->where('id', $id)->delete();
+
+        Alert::success('Berhasil', 'Pengguna berhasil dihapus.');
+
+        return redirect('/pengguna');
+    }
+
 }
